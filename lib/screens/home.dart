@@ -6,114 +6,18 @@ import 'cart.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final inputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30),
-      borderSide: BorderSide(
-        color: Colors.grey[300],
-      ),
-    );
     return Scaffold(
       body: SafeArea(
-        child: LayoutBuilder(builder: (cxt, constraints) {
-          final listItems = <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                // border: Border.all(color: Colors.grey[300]),
-                borderRadius: BorderRadius.circular(30),
-                // color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 2,
-                  ),
-                ],
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 15),
-                  filled: true,
-                  fillColor: Colors.white,
-                  suffixIcon: SizedBox(
-                    width: 60,
-                    child: Row(
-                      children: [
-                        Text(
-                          'بحث',
-                          style: TextStyle(color: Colors.grey[400]),
-                        ),
-                        Icon(
-                          Icons.search,
-                          color: Colors.grey[300],
-                        ),
-                      ],
-                    ),
-                  ),
-                  border: inputBorder,
-                  enabledBorder: inputBorder,
-                  focusedBorder: inputBorder,
-                  // hintText: '',
-                  // hintStyle: TextStyle(color: Colors.grey[400]),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Wrap(
-              spacing: 15,
-              runSpacing: 15,
-              direction: Axis.horizontal,
-              children: [
-                SizedBox(
-                  width: constraints.maxWidth * 0.43,
-                  child: ProductItem(
-                    image: 'images/3.png',
-                    intialQuantity: 1,
-                    name: 'زجاجة مياه كبيرة',
-                    price: 10,
-                  ),
-                ),
-                SizedBox(
-                  width: constraints.maxWidth * 0.43,
-                  child: ProductItem(
-                    image: 'images/3.png',
-                    intialQuantity: 1,
-                    name: 'زجاجة مياه كبيرة',
-                    price: 10,
-                  ),
-                ),
-                SizedBox(
-                  width: constraints.maxWidth * 0.43,
-                  child: ProductItem(
-                    image: 'images/3.png',
-                    intialQuantity: 1,
-                    name: 'زجاجة مياه كبيرة',
-                    price: 10,
-                  ),
-                ),
-                SizedBox(
-                  width: constraints.maxWidth * 0.43,
-                  child: ProductItem(
-                    image: 'images/3.png',
-                    intialQuantity: 1,
-                    name: 'زجاجة مياه كبيرة',
-                    price: 10,
-                  ),
-                ),
-              ],
-            ),
-          ];
-          return Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 180,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('images/2.png'),
-                    fit: BoxFit.cover,
-                    alignment: Alignment.bottomCenter,
-                  ),
-                ),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: true,
+              backgroundColor: Colors.blue[900],
+              expandedHeight: 260,
+              titleSpacing: 0,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 0),
                 child: Row(
                   children: [
                     Expanded(
@@ -205,19 +109,119 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (cxt, index) => listItems[index],
-                  itemCount: listItems.length,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 20,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        // height: double.infinity,
+                        height: 180,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('images/2.png'),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.bottomCenter,
+                          ),
+                        ),
+                        alignment: Alignment.bottomCenter,
+                      ),
+                      SearchField(),
+                    ],
                   ),
                 ),
               ),
-            ],
-          );
-        }),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 20,
+              ),
+              sliver: SliverGrid.extent(
+                maxCrossAxisExtent: 250,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+                childAspectRatio: 9 / 13.2,
+                children: List.generate(
+                  10,
+                  (index) => ProductItem(
+                    image: 'images/3.png',
+                    intialQuantity: 1,
+                    name: 'زجاجة مياه كبيرة',
+                    price: 10,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SearchField extends StatelessWidget {
+  const SearchField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final inputBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(30),
+      borderSide: BorderSide(
+        color: Colors.grey[300],
+      ),
+    );
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 30),
+      decoration: BoxDecoration(
+        // border: Border.all(color: Colors.grey[300]),
+        borderRadius: BorderRadius.circular(30),
+        // color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      child: TextField(
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+          filled: true,
+          fillColor: Colors.white,
+          suffixIcon: SizedBox(
+            width: 60,
+            child: Row(
+              children: [
+                Text(
+                  'بحث',
+                  style: TextStyle(color: Colors.grey[400]),
+                ),
+                Icon(
+                  Icons.search,
+                  color: Colors.grey[300],
+                ),
+              ],
+            ),
+          ),
+          border: inputBorder,
+          enabledBorder: inputBorder,
+          focusedBorder: inputBorder,
+          // hintText: '',
+          // hintStyle: TextStyle(color: Colors.grey[400]),
+        ),
       ),
     );
   }

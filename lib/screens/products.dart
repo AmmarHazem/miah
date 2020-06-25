@@ -9,14 +9,10 @@ List<String> images = [
   "images/3.png",
   "images/3.png",
   "images/3.png",
-  "images/3.png",
-  "images/3.png",
-  "images/3.png",
-  "images/3.png",
 ];
 
-var cardAspectRatio = 16 / 9;
-var widgetAspectRatio = cardAspectRatio * 1.2;
+// var cardAspectRatio = 16 / 9;
+// var widgetAspectRatio = cardAspectRatio * 1.2;
 
 class ProductsScreen extends StatefulWidget {
   @override
@@ -46,7 +42,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     child: PageView.builder(
                       itemCount: images.length,
                       controller: controller,
-                      reverse: true,
+                      // reverse: true,
                       itemBuilder: (context, index) {
                         return Container();
                       },
@@ -54,6 +50,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   )
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  images.length,
+                  (index) => AnimatedContainer(
+                    margin: const EdgeInsets.symmetric(horizontal: 7),
+                    duration: Duration(milliseconds: 150),
+                    decoration: BoxDecoration(
+                      color: currentPage == index ? Colors.blue : Colors.blue[900],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: currentPage == index ? 40 : 10,
+                    height: 10,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
               Wrap(
                 spacing: 15,
                 runSpacing: 15,
@@ -98,8 +111,8 @@ class CardScrollWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final cardAspectRatio = 12.0 / 16.0;
-    // final widgetAspectRatio = cardAspectRatio * 1.2;
+    final cardAspectRatio = 14 / 9; // 12.0 / 16.0;
+    final widgetAspectRatio = cardAspectRatio * 1.2;
     return AspectRatio(
       aspectRatio: widgetAspectRatio,
       child: LayoutBuilder(builder: (context, contraints) {
@@ -112,7 +125,7 @@ class CardScrollWidget extends StatelessWidget {
         var heightOfPrimaryCard = safeHeight;
         var widthOfPrimaryCard = heightOfPrimaryCard * cardAspectRatio;
 
-        var primaryCardLeft = safeWidth - widthOfPrimaryCard;
+        var primaryCardLeft = safeWidth - (widthOfPrimaryCard * 1.2);
         var horizontalInset = primaryCardLeft / 2;
 
         List<Widget> cardList = new List();
@@ -131,9 +144,11 @@ class CardScrollWidget extends StatelessWidget {
           var cardItem = Positioned.directional(
             top: padding + verticalInset * max(-delta, 0.0),
             bottom: padding + verticalInset * max(-delta, 0.0),
-            start: start,
+            start: start - 60,
+            end: -start + 10,
             textDirection: TextDirection.rtl,
             child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 50),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: Colors.white,
@@ -156,58 +171,9 @@ class CardScrollWidget extends StatelessWidget {
                   ]),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: <Widget>[
-                        Image.asset(images[i], fit: BoxFit.contain),
-
-                        // Align(
-                        //   alignment: Alignment.bottomLeft,
-                        //   child: Column(
-                        //     mainAxisSize: MainAxisSize.min,
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: <Widget>[
-                        //       Padding(
-                        //         padding: EdgeInsets.symmetric(
-                        //           horizontal: 16.0,
-                        //           vertical: 8.0,
-                        //         ),
-                        //         child: Text(
-                        //           title[i],
-                        //           style: TextStyle(
-                        //             color: Colors.white,
-                        //             fontSize: 25.0,
-                        //             fontFamily: "SF-Pro-Text-Regular",
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       SizedBox(
-                        //         height: 10.0,
-                        //       ),
-                        //       Padding(
-                        //         padding: const EdgeInsets.only(
-                        //           left: 12.0,
-                        //           bottom: 12.0,
-                        //         ),
-                        //         child: Container(
-                        //           padding: EdgeInsets.symmetric(
-                        //             horizontal: 22.0,
-                        //             vertical: 6.0,
-                        //           ),
-                        //           decoration: BoxDecoration(
-                        //             color: Colors.blueAccent,
-                        //             borderRadius: BorderRadius.circular(20.0),
-                        //           ),
-                        //           child: Text(
-                        //             "Read Later",
-                        //             style: TextStyle(color: Colors.white),
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // )
-                      ],
+                    child: Image.asset(
+                      images[i],
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -253,7 +219,7 @@ class CategoryItem extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   blurRadius: 4,
-                  color: Colors.grey[300],
+                  color: Colors.grey[400],
                 ),
               ],
             ),
