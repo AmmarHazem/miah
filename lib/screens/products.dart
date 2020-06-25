@@ -15,12 +15,25 @@ List<String> images = [
   "images/3.png",
 ];
 
-class ProductsScreen extends StatelessWidget {
-  final currentPage = images.length - 1.0;
+var cardAspectRatio = 12.0 / 16.0;
+var widgetAspectRatio = cardAspectRatio * 1.2;
+
+class ProductsScreen extends StatefulWidget {
+  @override
+  _ProductsScreenState createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
+  var currentPage = images.length - 1.0;
 
   @override
   Widget build(BuildContext context) {
     PageController controller = PageController(initialPage: images.length - 1);
+    controller.addListener(() {
+      setState(() {
+        currentPage = controller.page;
+      });
+    });
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(
@@ -85,8 +98,8 @@ class CardScrollWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardAspectRatio = 12.0 / 16.0;
-    final widgetAspectRatio = cardAspectRatio * 1.2;
+    // final cardAspectRatio = 12.0 / 16.0;
+    // final widgetAspectRatio = cardAspectRatio * 1.2;
     return AspectRatio(
       aspectRatio: widgetAspectRatio,
       child: LayoutBuilder(builder: (context, contraints) {
