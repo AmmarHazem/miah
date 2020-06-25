@@ -15,7 +15,7 @@ List<String> images = [
   "images/3.png",
 ];
 
-var cardAspectRatio = 12.0 / 16.0;
+var cardAspectRatio = 16 / 9;
 var widgetAspectRatio = cardAspectRatio * 1.2;
 
 class ProductsScreen extends StatefulWidget {
