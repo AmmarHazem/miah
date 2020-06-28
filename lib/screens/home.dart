@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
+                  elevation: 0,
                   automaticallyImplyLeading: false,
                   pinned: true,
                   backgroundColor: Colors.blue[900],
@@ -147,7 +148,22 @@ class HomeScreen extends StatelessWidget {
                             ),
                             alignment: Alignment.bottomCenter,
                           ),
-                          SearchField(),
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              SearchField(),
+                              Positioned(
+                                bottom: -3,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 3,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
