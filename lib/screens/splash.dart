@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:miah/screens/home.dart';
 import 'package:miah/screens/products.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         CupertinoPageRoute(builder: (cxt) => ProductsScreen()),
       );
